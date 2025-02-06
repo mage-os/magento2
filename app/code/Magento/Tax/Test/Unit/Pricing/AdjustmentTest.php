@@ -36,6 +36,11 @@ class AdjustmentTest extends TestCase
      */
     protected $sortOrder = 5;
 
+    /**
+     * @var float
+     */
+    private const EPSILON = 0.0000000001;
+
     protected function setUp(): void
     {
         $this->taxHelper = $this->createMock(Data::class);
@@ -117,7 +122,11 @@ class AdjustmentTest extends TestCase
             ->with($object, $amount)
             ->willReturn($price);
 
-        $this->assertEquals($expectedResult, $this->adjustment->extractAdjustment($amount, $object));
+        $this->assertEqualsWithDelta(
+            $expectedResult,
+            $this->adjustment->extractAdjustment($amount, $object),
+            self::EPSILON
+        );
     }
 
     /**

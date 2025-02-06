@@ -14,7 +14,8 @@
         <arguments>
             <argument name="indices" type="string"/>
         </arguments>
-
+        <!-- Reset indexer -->
+        <magentoCLI command="indexer:reset"  stepKey="resetIndexer"/>
         <magentoCLI command="indexer:reindex" arguments="{{indices}}" stepKey="reindexSpecifiedIndexers"/>
     </actionGroup>
 </actionGroups>

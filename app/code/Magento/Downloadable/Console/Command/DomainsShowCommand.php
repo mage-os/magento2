@@ -61,7 +61,8 @@ class DomainsShowCommand extends Command
             if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE) {
                 $output->writeln($e->getTraceAsString());
             }
-            return;
+            return Command::FAILURE;
         }
+        return Command::SUCCESS;
     }
 }

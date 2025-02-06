@@ -48,7 +48,7 @@ class SampleDataResetCommand extends Command
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function configure()
     {
@@ -58,7 +58,7 @@ class SampleDataResetCommand extends Command
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -74,5 +74,6 @@ class SampleDataResetCommand extends Command
         } else {
             $output->writeln('<info>' . 'There is no sample data for current set of modules.' . '</info>');
         }
+        return Command::SUCCESS;
     }
 }

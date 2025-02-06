@@ -21,9 +21,9 @@ use PHPUnit\Framework\TestCase;
 
 class OrderSaveTest extends TestCase
 {
-    const ORDERID = 123;
-    const ITEMID = 151;
-    const ORDER_ITEM_ID = 116;
+    private const ORDERID = 123;
+    private const ITEMID = 151;
+    private const ORDER_ITEM_ID = 116;
 
     /**
      * @var TaxFactory|MockObject
@@ -388,7 +388,7 @@ class OrderSaveTest extends TestCase
                         'amount' => 0.66,
                         'base_amount' => 0.66,
                         'process' => 0,
-                        'base_real_amount' => 0.36
+                        'base_real_amount' => 0.36000000000000004
                     ],
                     //federal tax
                     '36' => [
@@ -402,7 +402,7 @@ class OrderSaveTest extends TestCase
                         'amount' => 0.66, //combined amount
                         'base_amount' => 0.66,
                         'process' => 0,
-                        'base_real_amount' => 0.3 //portion for specific rate
+                        'base_real_amount' => 0.30000000000000004 //portion for specific rate
                     ],
                     //city tax
                     '37' => [
@@ -416,32 +416,32 @@ class OrderSaveTest extends TestCase
                         'amount' => 0.2, //combined amount
                         'base_amount' => 0.2,
                         'process' => 0,
-                        'base_real_amount' => 0.18018018018018 //this number is meaningless since this is single rate
+                        'base_real_amount' => 0.18018018018018017 //this number is meaningless since this is single rate
                     ]
                 ],
                 'expected_item_taxes' => [
                     [
                         //state tax for item
                         'item_id' => self::ORDER_ITEM_ID,
-                        'tax_id' => '35',
+                        'tax_id' => 35,
                         'tax_percent' => 6,
                         'associated_item_id' => null,
                         'amount' => 0.11,
                         'base_amount' => 0.11,
-                        'real_amount' => 0.06,
-                        'real_base_amount' => 0.06,
+                        'real_amount' => 0.060000000000000005,
+                        'real_base_amount' => 0.060000000000000005,
                         'taxable_item_type' => 'product'
                     ],
                     [
                         //state tax for shipping
                         'item_id' => null,
-                        'tax_id' => '35',
+                        'tax_id' => 35,
                         'tax_percent' => 6,
                         'associated_item_id' => null,
                         'amount' => 0.55,
                         'base_amount' => 0.55,
-                        'real_amount' => 0.3,
-                        'real_base_amount' => 0.3,
+                        'real_amount' => 0.30000000000000004,
+                        'real_base_amount' => 0.30000000000000004,
                         'taxable_item_type' => 'shipping'
                     ],
                     [
@@ -638,7 +638,7 @@ class OrderSaveTest extends TestCase
                         'amount' => 0.66,
                         'base_amount' => 0.66,
                         'process' => 0,
-                        'base_real_amount' => 0.36
+                        'base_real_amount' => 0.36000000000000004
                     ],
                     //federal tax
                     '36' => [
@@ -652,7 +652,7 @@ class OrderSaveTest extends TestCase
                         'amount' => 0.66, //combined amount
                         'base_amount' => 0.66,
                         'process' => 0,
-                        'base_real_amount' => 0.3 //portion for specific rate
+                        'base_real_amount' => 0.30000000000000004 //portion for specific rate
                     ],
                     //city tax
                     '37' => [
@@ -666,32 +666,32 @@ class OrderSaveTest extends TestCase
                         'amount' => 0.2, //combined amount
                         'base_amount' => 0.2,
                         'process' => 0,
-                        'base_real_amount' => 0.18018018018018 //this number is meaningless since this is single rate
+                        'base_real_amount' => 0.18018018018018017 //this number is meaningless since this is single rate
                     ]
                 ],
                 'expected_item_taxes' => [
                     [
                         //state tax for item
                         'item_id' => null,
-                        'tax_id' => '35',
+                        'tax_id' => 35,
                         'tax_percent' => 6,
                         'associated_item_id' => null,
                         'amount' => 0.11,
                         'base_amount' => 0.11,
-                        'real_amount' => 0.06,
-                        'real_base_amount' => 0.06,
+                        'real_amount' => 0.060000000000000005,
+                        'real_base_amount' => 0.060000000000000005,
                         'taxable_item_type' => 'product'
                     ],
                     [
                         //state tax for shipping
                         'item_id' => null,
-                        'tax_id' => '35',
+                        'tax_id' => 35,
                         'tax_percent' => 6,
                         'associated_item_id' => null,
                         'amount' => 0.55,
                         'base_amount' => 0.55,
-                        'real_amount' => 0.3,
-                        'real_base_amount' => 0.3,
+                        'real_amount' => 0.30000000000000004,
+                        'real_base_amount' => 0.30000000000000004,
                         'taxable_item_type' => 'shipping'
                     ],
                     [

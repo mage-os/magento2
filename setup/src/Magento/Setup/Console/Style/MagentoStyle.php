@@ -32,7 +32,7 @@ class MagentoStyle extends OutputStyle implements MagentoStyleInterface
     /**
      * Default console line max length(use for limitation in case terminal width greater than 120 characters).
      */
-    const MAX_LINE_LENGTH = 120;
+    public const MAX_LINE_LENGTH = 120;
 
     /**
      * Console input provider.
@@ -114,7 +114,7 @@ class MagentoStyle extends OutputStyle implements MagentoStyleInterface
     public function title($message)
     {
         $this->autoPrependBlock();
-        $bar = str_repeat('=', Helper::strlenWithoutDecoration($this->getFormatter(), $message));
+        $bar = str_repeat('=', Helper::width(Helper::removeDecoration($this->getFormatter(), $message)));
         $this->writeln(
             [
                 sprintf(' <options=bold>%s</>', OutputFormatter::escapeTrailingBackslash($message)),
@@ -130,7 +130,7 @@ class MagentoStyle extends OutputStyle implements MagentoStyleInterface
     public function section($message)
     {
         $this->autoPrependBlock();
-        $bar = str_repeat('-', Helper::strlenWithoutDecoration($this->getFormatter(), $message));
+        $bar = str_repeat('-', Helper::width(Helper::removeDecoration($this->getFormatter(), $message)));
         $this->writeln(
             [
                 sprintf(' <fg=white>%s</>', OutputFormatter::escapeTrailingBackslash($message)),

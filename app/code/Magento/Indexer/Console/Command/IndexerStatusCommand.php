@@ -7,6 +7,7 @@ namespace Magento\Indexer\Console\Command;
 
 use Magento\Framework\Indexer;
 use Magento\Framework\Mview;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -71,6 +72,7 @@ class IndexerStatusCommand extends AbstractIndexerManageCommand
 
         $table->addRows($rows);
         $table->render();
+        return Command::SUCCESS;
     }
 
     /**

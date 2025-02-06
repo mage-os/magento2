@@ -19,27 +19,27 @@ class QueryLogEnableCommand extends Command
     /**
      * input parameter log-all-queries
      */
-    const INPUT_ARG_LOG_ALL_QUERIES = 'include-all-queries';
+    private const INPUT_ARG_LOG_ALL_QUERIES = 'include-all-queries';
 
     /**
      * input parameter log-query-time
      */
-    const INPUT_ARG_LOG_QUERY_TIME = 'query-time-threshold';
+    private const INPUT_ARG_LOG_QUERY_TIME = 'query-time-threshold';
 
     /**
      * input parameter log-call-stack
      */
-    const INPUT_ARG_LOG_CALL_STACK = 'include-call-stack';
+    private const INPUT_ARG_LOG_CALL_STACK = 'include-call-stack';
 
     /**
      * command name
      */
-    const COMMAND_NAME = 'dev:query-log:enable';
+    private const COMMAND_NAME = 'dev:query-log:enable';
 
     /**
      * Success message
      */
-    const SUCCESS_MESSAGE = "DB query logging enabled.";
+    public const SUCCESS_MESSAGE = "DB query logging enabled.";
 
     /**
      * @var Writer
@@ -49,7 +49,7 @@ class QueryLogEnableCommand extends Command
     /**
      * QueryLogEnableCommand constructor.
      * @param Writer $deployConfigWriter
-     * @param null $name
+     * @param string|null $name
      */
     public function __construct(
         Writer $deployConfigWriter,
@@ -60,7 +60,7 @@ class QueryLogEnableCommand extends Command
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function configure()
     {
@@ -96,7 +96,7 @@ class QueryLogEnableCommand extends Command
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      * @throws \InvalidArgumentException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -116,5 +116,6 @@ class QueryLogEnableCommand extends Command
         $this->deployConfigWriter->saveConfig([ConfigFilePool::APP_ENV => $configGroup]);
 
         $output->writeln("<info>". self::SUCCESS_MESSAGE . "</info>");
+        return Command::SUCCESS;
     }
 }

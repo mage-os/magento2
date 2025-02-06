@@ -17,9 +17,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Magento\Deploy\Model\DeploymentConfig\ImporterFactory;
 use Magento\Framework\Console\QuestionPerformer\YesNo;
 use Psr\Log\LoggerInterface as Logger;
+use Symfony\Component\Console\Command\Command;
 
 /**
  * Runs process of importing config data from deployment configuration files.
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class Processor
 {
@@ -59,7 +61,6 @@ class Processor
     private $importerFactory;
 
     /**
-     * Logger.
      *
      * @var Logger
      */
@@ -104,7 +105,7 @@ class Processor
      *
      * @param InputInterface $input The CLI input
      * @param OutputInterface $output The CLI output
-     * @return void
+     * @return int
      * @throws RuntimeException is thrown when import has failed
      */
     public function execute(InputInterface $input, OutputInterface $output)
@@ -113,7 +114,7 @@ class Processor
             $importers = $this->configImporterPool->getImporters();
             if (!$importers || !$this->changeDetector->hasChanges()) {
                 $output->writeln('<info>Nothing to import.</info>');
-                return;
+                return Command::SUCCESS;
             }
 
             $output->writeln('<info>Processing configurations data from configuration file...</info>');
@@ -133,7 +134,7 @@ class Processor
                 /** @var ImporterInterface $importer */
                 $importer = $this->importerFactory->create($importerClassName);
                 $warnings = $importer->getWarningMessages($data);
-                $questions = array_merge($warnings, ['Do you want to continue [yes/no]?']);
+                $questions = array_merge($warnings, ['Do you want to continue [yes/no]?']);// phpcs:ignore
 
                 /**
                  * The importer return some warning questions which are contained in variable $warnings.
@@ -151,6 +152,7 @@ class Processor
             $this->logger->error($exception);
             throw new RuntimeException(__('Import failed: %1', $exception->getMessage()), $exception);
         }
+        return Command::SUCCESS;
     }
 
     /**

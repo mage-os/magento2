@@ -16,17 +16,17 @@ class ProfilerDisableCommand extends Command
     /**
      * Profiler flag file
      */
-    const PROFILER_FLAG_FILE = 'var/profiler.flag';
+    public const PROFILER_FLAG_FILE = 'var/profiler.flag';
 
     /**
      * Command name
      */
-    const COMMAND_NAME = 'dev:profiler:disable';
+    private const COMMAND_NAME = 'dev:profiler:disable';
 
     /**
      * Success message
      */
-    const SUCCESS_MESSAGE = 'Profiler disabled.';
+    public const SUCCESS_MESSAGE = 'Profiler disabled.';
 
     /**
      * @var File
@@ -46,7 +46,7 @@ class ProfilerDisableCommand extends Command
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function configure()
     {
@@ -57,7 +57,7 @@ class ProfilerDisableCommand extends Command
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      * @throws \InvalidArgumentException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -65,8 +65,9 @@ class ProfilerDisableCommand extends Command
         $this->filesystem->rm(BP . '/' . self::PROFILER_FLAG_FILE);
         if (!$this->filesystem->fileExists(BP . '/' . self::PROFILER_FLAG_FILE)) {
             $output->writeln('<info>'. self::SUCCESS_MESSAGE . '</info>');
-            return;
+            return Command::SUCCESS;
         }
         $output->writeln('<error>Something went wrong while disabling the profiler.</error>');
+        return Command::FAILURE;
     }
 }

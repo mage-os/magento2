@@ -13,6 +13,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Magento\Framework\Filesystem\Io\File;
 
 /**
  * Class SourceThemeDeployCommand
@@ -24,27 +25,27 @@ class SourceThemeDeployCommand extends Command
     /**
      * Locale option key
      */
-    const LOCALE_OPTION = 'locale';
+    private const LOCALE_OPTION = 'locale';
 
     /**
      * Area option key
      */
-    const AREA_OPTION = 'area';
+    private const AREA_OPTION = 'area';
 
     /**
      * Theme option key
      */
-    const THEME_OPTION = 'theme';
+    private const THEME_OPTION = 'theme';
 
     /**
      * Type argument key
      */
-    const TYPE_ARGUMENT = 'type';
+    private const TYPE_ARGUMENT = 'type';
 
     /**
      * Files argument key
      */
-    const FILE_ARGUMENT = 'file';
+    private const FILE_ARGUMENT = 'file';
 
     /**
      * @var Locale
@@ -163,7 +164,7 @@ class SourceThemeDeployCommand extends Command
         $output->writeln($message);
 
         foreach ($files as $file) {
-            $fileInfo = pathinfo($file);
+            $fileInfo = pathinfo($file); //phpcs:ignore
             $asset = $this->assetRepository->createAsset(
                 $fileInfo['dirname'] . DIRECTORY_SEPARATOR . $fileInfo['basename'] . '.' . $type,
                 [
@@ -185,5 +186,6 @@ class SourceThemeDeployCommand extends Command
         }
 
         $output->writeln('<info>Successfully processed.</info>');
+        return Command::SUCCESS; // Return success status code
     }
 }

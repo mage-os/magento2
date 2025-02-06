@@ -13,6 +13,11 @@ use PHPUnit\Framework\MockObject\MockObject;
 
 class TotalBaseCalculatorTest extends RowBaseAndTotalBaseCalculatorTestCase
 {
+    /**
+     * @var float
+     */
+    private const EPSILON = 0.0000000001;
+
     /** @var MockObject */
     protected $totalBaseCalculator;
 
@@ -41,7 +46,11 @@ class TotalBaseCalculatorTest extends RowBaseAndTotalBaseCalculatorTestCase
             $this->taxDetailsItem,
             $this->calculate($this->totalBaseCalculator, false)
         );
-        $this->assertEquals(self::UNIT_PRICE_INCL_TAX, $this->taxDetailsItem->getPriceInclTax());
+        $this->assertEqualsWithDelta(
+            self::UNIT_PRICE_INCL_TAX,
+            $this->taxDetailsItem->getPriceInclTax(),
+            self::EPSILON
+        );
     }
 
     public function testCalculateWithTaxNotInPrice()

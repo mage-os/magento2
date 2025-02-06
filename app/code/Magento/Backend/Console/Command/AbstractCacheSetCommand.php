@@ -6,10 +6,12 @@
 
 namespace Magento\Backend\Console\Command;
 
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
+ * phpcs:disable Magento2.Classes.AbstractApi
  * @api
  * @since 100.0.2
  */
@@ -23,7 +25,7 @@ abstract class AbstractCacheSetCommand extends AbstractCacheManageCommand
     abstract protected function isEnable();
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -43,5 +45,6 @@ abstract class AbstractCacheSetCommand extends AbstractCacheManageCommand
             $output->writeln('Cleaned cache types:');
             $output->writeln(join(PHP_EOL, $changedTypes));
         }
+        return Command::SUCCESS; // Return success status code
     }
 }

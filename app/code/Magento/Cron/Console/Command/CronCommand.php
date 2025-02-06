@@ -27,10 +27,10 @@ class CronCommand extends Command
     /**
      * Name of input option
      */
-    const INPUT_KEY_GROUP = 'group';
+    private const INPUT_KEY_GROUP = 'group';
 
     /**
-     * Object manager factory
+     * Object manager factory variable
      *
      * @var ObjectManagerFactory
      */
@@ -59,7 +59,7 @@ class CronCommand extends Command
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function configure()
     {
@@ -84,17 +84,15 @@ class CronCommand extends Command
     }
 
     /**
-     * Runs cron jobs if cron is not disabled in Magento configurations
-     *
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         if (!$this->deploymentConfig->get('cron/enabled', 1)) {
             $output->writeln('<info>' . 'Cron is disabled. Jobs were not run.' . '</info>');
-            return;
+            return Command::SUCCESS;
         }
-        $omParams = $_SERVER;
+        $omParams = $_SERVER;// phpcs:ignore
         $omParams[StoreManager::PARAM_RUN_CODE] = 'admin';
         $omParams[Store::CUSTOM_ENTRY_POINT_PARAM] = true;
         $objectManager = $this->objectManagerFactory->create($omParams);
@@ -116,5 +114,6 @@ class CronCommand extends Command
         $cronObserver = $objectManager->create(\Magento\Framework\App\Cron::class, ['parameters' => $params]);
         $cronObserver->launch();
         $output->writeln('<info>' . 'Ran jobs by schedule.' . '</info>');
+        return Command::SUCCESS;
     }
 }

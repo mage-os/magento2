@@ -18,12 +18,12 @@ class QueryLogDisableCommand extends Command
     /**
      * command name
      */
-    const COMMAND_NAME = 'dev:query-log:disable';
+    private const COMMAND_NAME = 'dev:query-log:disable';
 
     /**
      * Success message
      */
-    const SUCCESS_MESSAGE = "DB query logging disabled.";
+    public const SUCCESS_MESSAGE = "DB query logging disabled.";
 
     /**
      * @var Writer
@@ -33,7 +33,7 @@ class QueryLogDisableCommand extends Command
     /**
      * QueryLogDisableCommand constructor.
      * @param Writer $deployConfigWriter
-     * @param null $name
+     * @param string|null $name
      */
     public function __construct(
         Writer $deployConfigWriter,
@@ -44,7 +44,7 @@ class QueryLogDisableCommand extends Command
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function configure()
     {
@@ -55,7 +55,7 @@ class QueryLogDisableCommand extends Command
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      * @throws \InvalidArgumentException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -64,5 +64,6 @@ class QueryLogDisableCommand extends Command
         $this->deployConfigWriter->saveConfig([ConfigFilePool::APP_ENV => [LoggerProxy::CONF_GROUP_NAME => $data]]);
 
         $output->writeln("<info>". self::SUCCESS_MESSAGE . "</info>");
+        return Command::SUCCESS;
     }
 }

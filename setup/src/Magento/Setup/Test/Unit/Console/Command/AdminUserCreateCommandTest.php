@@ -111,7 +111,6 @@ class AdminUserCreateCommandTest extends TestCase
             'verbose' => false,
             'version' => false,
             'ansi' => false,
-            'no-ansi' => false,
             'no-interaction' => false
         ];
 

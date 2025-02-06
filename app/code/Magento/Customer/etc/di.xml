@@ -560,4 +560,9 @@
         <plugin name="getByIdCustomerGroupExcludedWebsite" type="Magento\Customer\Model\Plugin\GetByIdCustomerGroupExcludedWebsite"/>
         <plugin name="getListCustomerGroupExcludedWebsite" type="Magento\Customer\Model\Plugin\GetListCustomerGroupExcludedWebsite"/>
     </type>
+    <type name="Magento\AsynchronousOperations\Model\MassSchedule">
+        <plugin name="anonymousAsyncCustomerRequest"
+                type="Magento\Customer\Plugin\AsyncRequestCustomerGroupAuthorization"
+        />
+    </type>
 </config>

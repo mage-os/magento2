@@ -17,27 +17,27 @@ class ProfilerEnableCommand extends Command
     /**
      * Profiler flag file
      */
-    const PROFILER_FLAG_FILE = 'var/profiler.flag';
+    public const PROFILER_FLAG_FILE = 'var/profiler.flag';
 
     /**
      * Profiler type default setting
      */
-    const TYPE_DEFAULT = 'html';
+    public const TYPE_DEFAULT = 'html';
 
     /**
      * Built in profiler types
      */
-    const BUILT_IN_TYPES = ['html', 'csvfile'];
+    private const BUILT_IN_TYPES = ['html', 'csvfile'];
 
     /**
      * Command name
      */
-    const COMMAND_NAME = 'dev:profiler:enable';
+    private const COMMAND_NAME = 'dev:profiler:enable';
 
     /**
      * Success message
      */
-    const SUCCESS_MESSAGE = 'Profiler enabled with %s output.';
+    private const SUCCESS_MESSAGE = 'Profiler enabled with %s output.';
 
     /**
      * @var File
@@ -57,7 +57,7 @@ class ProfilerEnableCommand extends Command
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function configure()
     {
@@ -69,7 +69,7 @@ class ProfilerEnableCommand extends Command
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      * @throws \InvalidArgumentException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -102,8 +102,9 @@ class ProfilerEnableCommand extends Command
             }
             $output->write(PHP_EOL);
 
-            return;
+            return Command::SUCCESS;
         }
         $output->writeln('<error>Something went wrong while enabling the profiler.</error>');
+        return Command::FAILURE;
     }
 }

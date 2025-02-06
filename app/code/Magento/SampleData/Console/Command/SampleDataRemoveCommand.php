@@ -23,7 +23,7 @@ use Composer\Console\ApplicationFactory;
  */
 class SampleDataRemoveCommand extends Command
 {
-    const OPTION_NO_UPDATE = 'no-update';
+    private const OPTION_NO_UPDATE = 'no-update';
 
     /**
      * @var Filesystem
@@ -38,6 +38,7 @@ class SampleDataRemoveCommand extends Command
     /**
      * @var ArrayInputFactory
      * @deprecated 100.1.0
+     * @see \Symfony\Component\Console\Input\ArrayInput
      */
     private $arrayInputFactory;
 
@@ -66,7 +67,7 @@ class SampleDataRemoveCommand extends Command
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function configure()
     {
@@ -82,7 +83,7 @@ class SampleDataRemoveCommand extends Command
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -103,9 +104,11 @@ class SampleDataRemoveCommand extends Command
             $result = $application->run($commandInput, $output);
             if ($result !== 0) {
                 $output->writeln('<info>' . 'There is an error during remove sample data.' . '</info>');
+                return Command::FAILURE;
             }
         } else {
             $output->writeln('<info>' . 'There is no sample data for current set of modules.' . '</info>');
         }
+        return Command::SUCCESS;
     }
 }

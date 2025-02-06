@@ -53,6 +53,11 @@ class TaxManagementTest extends TestCase
      */
     protected $orderTaxDetailsDataObject;
 
+    /**
+     * @var float
+     */
+    private const EPSILON = 0.0000000001;
+
     protected function setUp(): void
     {
         $this->orderMock = $this->createPartialMock(Order::class, ['load']);
@@ -135,7 +140,11 @@ class TaxManagementTest extends TestCase
         $this->assertEquals($expected['title'], $this->appliedTaxDataObject->getTitle());
         $this->assertEquals($expected['tax_percent'], $this->appliedTaxDataObject->getPercent());
         $this->assertEquals($expected['real_amount'], $this->appliedTaxDataObject->getAmount());
-        $this->assertEquals($expected['real_base_amount'], $this->appliedTaxDataObject->getBaseAmount());
+        $this->assertEqualsWithDelta(
+            $expected['real_base_amount'],
+            $this->appliedTaxDataObject->getBaseAmount(),
+            self::EPSILON
+        );
     }
 
     /**

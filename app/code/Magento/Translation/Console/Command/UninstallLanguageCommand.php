@@ -27,12 +27,12 @@ class UninstallLanguageCommand extends Command
     /**
      * Language code argument name
      */
-    const PACKAGE_ARGUMENT = 'package';
+    private const PACKAGE_ARGUMENT = 'package';
 
     /**
      * Backup-code option name
      */
-    const BACKUP_CODE_OPTION = 'backup-code';
+    private const BACKUP_CODE_OPTION = 'backup-code';
 
     /**
      * @var DependencyChecker
@@ -144,6 +144,7 @@ class UninstallLanguageCommand extends Command
         } else {
             $output->writeln('<info>Nothing is removed.</info>');
         }
+        return Command::SUCCESS;
     }
 
     /**

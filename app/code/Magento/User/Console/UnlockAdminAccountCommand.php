@@ -16,11 +16,11 @@ use Magento\User\Model\ResourceModel\User as AdminUser;
  */
 class UnlockAdminAccountCommand extends Command
 {
-    const ARGUMENT_ADMIN_USERNAME = 'username';
-    const ARGUMENT_ADMIN_USERNAME_DESCRIPTION = 'The admin username to unlock';
-    const COMMAND_ADMIN_ACCOUNT_UNLOCK = 'admin:user:unlock';
-    const COMMAND_DESCRIPTION = 'Unlock Admin Account';
-    const USER_ID = 'user_id';
+    public const ARGUMENT_ADMIN_USERNAME = 'username';
+    public const ARGUMENT_ADMIN_USERNAME_DESCRIPTION = 'The admin username to unlock';
+    public const COMMAND_ADMIN_ACCOUNT_UNLOCK = 'admin:user:unlock';
+    public const COMMAND_DESCRIPTION = 'Unlock Admin Account';
+    public const USER_ID = 'user_id';
 
     /**
      * @var AdminUser
@@ -28,9 +28,10 @@ class UnlockAdminAccountCommand extends Command
     private $adminUser;
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      *
-     * @param AdminUser $userResource
+     * @param AdminUser $adminUser
+     * @param string|null $name
      */
     public function __construct(
         AdminUser $adminUser,
@@ -41,7 +42,7 @@ class UnlockAdminAccountCommand extends Command
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -59,10 +60,11 @@ class UnlockAdminAccountCommand extends Command
             }
         }
         $output->writeln('<info>' . $outputMessage . '</info>');
+        return Command::SUCCESS;
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function configure()
     {

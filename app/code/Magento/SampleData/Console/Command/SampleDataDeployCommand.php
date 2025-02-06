@@ -32,7 +32,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class SampleDataDeployCommand extends Command
 {
-    const OPTION_NO_UPDATE = 'no-update';
+    private const OPTION_NO_UPDATE = 'no-update';
 
     /**
      * @var Filesystem

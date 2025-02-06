@@ -7,11 +7,13 @@
 namespace Magento\Backend\Console\Command;
 
 use Magento\Framework\Event\ManagerInterface as EventManagerInterface;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Magento\Framework\App\Cache\Manager;
 
 /**
+ * phpcs:disable Magento2.Classes.AbstractApi
  * @api
  * @since 100.0.2
  */
@@ -62,5 +64,6 @@ abstract class AbstractCacheTypeManageCommand extends AbstractCacheManageCommand
         $this->performAction($types);
         $output->writeln($this->getDisplayMessage());
         $output->writeln(join(PHP_EOL, $types));
+        return Command::SUCCESS; // Return success status code
     }
 }

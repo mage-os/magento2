@@ -37,6 +37,11 @@ class TaxTest extends TestCase
      */
     protected $invoice;
 
+    /**
+     * @var float
+     */
+    private const EPSILON = 0.0000000001;
+
     protected function setUp(): void
     {
         $this->objectManager = new ObjectManager($this);
@@ -115,13 +120,13 @@ class TaxTest extends TestCase
 
         //verify invoice data
         foreach ($expectedResults['invoice_data'] as $key => $value) {
-            $this->assertEquals($value, $this->invoice->getData($key));
+            $this->assertEqualsWithDelta($value, $this->invoice->getData($key), self::EPSILON);
         }
         //verify invoice item data
         foreach ($expectedResults['invoice_items'] as $itemKey => $itemData) {
             $invoiceItem = $invoiceItems[$itemKey];
             foreach ($itemData as $key => $value) {
-                $this->assertEquals($value, $invoiceItem->getData($key));
+                $this->assertEqualsWithDelta($value, $invoiceItem->getData($key), self::EPSILON);
             }
         }
     }
