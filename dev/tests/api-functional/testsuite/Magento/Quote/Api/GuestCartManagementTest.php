@@ -10,10 +10,13 @@ use Magento\TestFramework\TestCase\WebapiAbstract;
 
 class GuestCartManagementTest extends WebapiAbstract
 {
-    const SERVICE_VERSION = 'V1';
-    const SERVICE_NAME = 'quoteGuestCartManagementV1';
-    const RESOURCE_PATH = '/V1/guest-carts/';
+    public const SERVICE_VERSION = 'V1';
+    public const SERVICE_NAME = 'quoteGuestCartManagementV1';
+    public const RESOURCE_PATH = '/V1/guest-carts/';
 
+    /**
+     * @var array List of created quotes
+     */
     protected $createdQuotes = [];
 
     /**
@@ -339,7 +342,7 @@ class GuestCartManagementTest extends WebapiAbstract
     public function testAssignCustomerByGuestUser()
     {
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('You don\'t have the correct permissions to assign the customer to the cart.');
+        $this->expectExceptionMessage('Enter and try again.');
 
         /** @var $quote \Magento\Quote\Model\Quote */
         $quote = $this->objectManager->create(\Magento\Quote\Model\Quote::class)->load('test01', 'reserved_order_id');
