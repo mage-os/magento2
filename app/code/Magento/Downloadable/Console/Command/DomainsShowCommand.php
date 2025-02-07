@@ -6,10 +6,11 @@
  */
 namespace Magento\Downloadable\Console\Command;
 
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputInterface;
 use Magento\Downloadable\Api\DomainManagerInterface as DomainManager;
+use Magento\Framework\Console\Cli;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class DomainsShowCommand
@@ -61,7 +62,10 @@ class DomainsShowCommand extends Command
             if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE) {
                 $output->writeln($e->getTraceAsString());
             }
-            return;
+
+            return Cli::RETURN_FAILURE;
         }
+
+        return Cli::RETURN_SUCCESS;
     }
 }

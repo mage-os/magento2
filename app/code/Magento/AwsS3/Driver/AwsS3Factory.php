@@ -120,6 +120,12 @@ class AwsS3Factory implements DriverFactoryInterface
             $config['use_path_style_endpoint'] = boolval($config['path_style']);
         }
 
+        // Suppress PHP deprecation warning if PHP version is less than 8.1 as new aws-sdk-php version
+        // is deprecated for PHP <=7.4
+        if (version_compare(PHP_VERSION, '8.1', '<')) {
+            $config['suppress_php_deprecation_warning'] = true;
+        }
+
         $client = new S3Client($config);
         $adapter = new AwsS3V3Adapter($client, $config['bucket'], $prefix);
         $cache = $this->cacheInterfaceFactory->create(

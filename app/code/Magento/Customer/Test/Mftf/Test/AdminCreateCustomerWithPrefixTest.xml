@@ -43,6 +43,9 @@
         <seeElement selector="{{AdminCustomerMessagesSection.successMessage}}" stepKey="assertSuccessMessage"/>
         <reloadPage stepKey="reloadPage"/>
 
+        <actionGroup ref="CliIndexerReindexActionGroup" stepKey="performReindexAfterSetConfiguration">
+            <argument name="indices" value=""/>
+        </actionGroup>
         <!--Filter the customer From grid-->
         <actionGroup ref="AdminFilterCustomerByEmail" stepKey="filterTheCustomerByEmail">
             <argument name="email" value="{{CustomerEntityOne.email}}"/>

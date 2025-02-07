@@ -171,8 +171,6 @@ class Save extends \Magento\Customer\Controller\Adminhtml\Index implements HttpP
         $customerData = [];
         if ($this->getRequest()->getPost('customer')) {
             $additionalAttributes = [
-                CustomerInterface::DEFAULT_BILLING,
-                CustomerInterface::DEFAULT_SHIPPING,
                 'confirmation',
                 'sendemail_store_id',
                 'extension_attributes',
@@ -249,6 +247,7 @@ class Save extends \Magento\Customer\Controller\Adminhtml\Index implements HttpP
      * @param array $extractedCustomerData
      * @return array
      * @deprecated 102.0.1 must be removed because addresses are save separately for now
+     * @see \Magento\Customer\Controller\Adminhtml\Address\Save
      */
     protected function saveDefaultFlags(array $addressIdList, array &$extractedCustomerData)
     {
@@ -291,6 +290,7 @@ class Save extends \Magento\Customer\Controller\Adminhtml\Index implements HttpP
      * @param array $extractedCustomerData
      * @return array
      * @deprecated 102.0.1 addresses are saved separately for now
+     * @see \Magento\Customer\Controller\Adminhtml\Address\Save
      */
     protected function _extractCustomerAddressData(array &$extractedCustomerData)
     {
@@ -465,6 +465,7 @@ class Save extends \Magento\Customer\Controller\Adminhtml\Index implements HttpP
      *
      * @return EmailNotificationInterface
      * @deprecated 100.1.0
+     * @see no alternative
      */
     private function getEmailNotification()
     {

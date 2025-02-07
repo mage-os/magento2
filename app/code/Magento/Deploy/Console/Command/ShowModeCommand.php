@@ -6,11 +6,12 @@
 
 namespace Magento\Deploy\Console\Command;
 
-use Magento\Framework\ObjectManagerInterface;
 use Magento\Framework\App\State;
+use Magento\Framework\Console\Cli;
+use Magento\Framework\ObjectManagerInterface;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Command to show application mode
@@ -69,7 +70,9 @@ class ShowModeCommand extends Command
             if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE) {
                 $output->writeln($e->getTraceAsString());
             }
-            return;
+            return Cli::RETURN_FAILURE;
         }
+
+        return Cli::RETURN_SUCCESS;
     }
 }

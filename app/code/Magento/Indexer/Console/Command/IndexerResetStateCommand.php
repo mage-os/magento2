@@ -5,11 +5,10 @@
  */
 namespace Magento\Indexer\Console\Command;
 
+use Magento\Framework\Console\Cli;
 use Magento\Framework\Exception\LocalizedException;
-use Magento\Framework\Indexer\StateInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Magento\Framework\Indexer\ConfigInterface;
 
 /**
  * Command for invalidating indexers.
@@ -17,7 +16,7 @@ use Magento\Framework\Indexer\ConfigInterface;
 class IndexerResetStateCommand extends AbstractIndexerManageCommand
 {
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function configure()
     {
@@ -29,7 +28,7 @@ class IndexerResetStateCommand extends AbstractIndexerManageCommand
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -42,10 +41,14 @@ class IndexerResetStateCommand extends AbstractIndexerManageCommand
                 $output->writeln($indexer->getTitle() . ' indexer has been invalidated.');
             } catch (LocalizedException $e) {
                 $output->writeln($e->getMessage());
+                return Cli::RETURN_FAILURE;
             } catch (\Exception $e) {
                 $output->writeln($indexer->getTitle() . ' indexer process unknown error:');
                 $output->writeln($e->getMessage());
+                return Cli::RETURN_FAILURE;
             }
         }
+
+        return Cli::RETURN_SUCCESS;
     }
 }
